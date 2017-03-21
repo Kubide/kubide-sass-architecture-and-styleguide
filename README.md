@@ -576,8 +576,8 @@ sass/
 |   |– _contact.scss      # Contact specific styles
 |   …                     # Etc.
 |
-|– animation/
-|   |– _animation.scss     # Animation Layer
+|– animations/
+|   |– _animations.scss     # Animation Layer
 |
 |– vendors/
 |   |– _bootstrap.scss    # Bootstrap
@@ -585,4 +585,117 @@ sass/
 |   …                     # Etc.
 |
 – main.scss              # Main Sass file
+```
+
+
+### Base folder
+
+The `base/` folder holds what we might call the boilerplate code for the project.
+
+* `_base.scss`
+* `_reset.scss`
+* `_typography.scss`
+
+### Layout folder
+
+The `layout/` folder contains everything that takes part in laying out the site or application.
+
+
+* `_grid.scss`
+* `_header.scss`
+* `_footer.scss`
+* `_sidebar.scss`
+* `_forms.scss`
+* `_navigation.scss`
+
+### Components folder
+
+For smaller components, there is the `components/` folder.
+
+* `_media.scss`
+* `_carousel.scss`
+* `_thumbnails.scss`
+
+
+### Pages folder
+
+If you have page-specific styles, it is better to put them in a `pages/` folder.
+
+* `_home.scss`
+* `_contact.scss`
+
+### Animations folder
+
+If you have small or heavy animations you should put them in a `animations/` folder.
+
+* `_animations.scss`
+
+### Abstracts folder
+
+The `abstracts/` folder gathers all Sass tools and helpers used across the project. Every global variable, function, mixin and placeholder should be put in here.
+
+* `_variables.scss`
+* `_mixins.scss`
+* `_functions.scss`
+* `_placeholders.scss`
+
+
+### Vendors folder
+
+And last but not least, most projects will have a `vendors/` folder containing all the CSS files from external libraries and frameworks – Normalize, Bootstrap, jQueryUI, FancyCarouselSliderjQueryPowered, and so on. Putting those aside in the same folder is a good way to say “Hey, this is not from me, not my code, not my responsibility”.
+
+* `_normalize.scss`
+* `_bootstrap.scss`
+* `_jquery-ui.scss`
+
+### Main file
+
+The main file (usually labelled `main.scss`) should be the only Sass file from the whole code base not to begin with an underscore. This file should not contain anything but `@import` and comments.
+
+Files should be imported according to the folder they live in, one after the other in the following order:
+
+1. `abstracts/`
+1. `vendors/`
+1. `base/`
+1. `layout/`
+1. `components/`
+1. `pages/`
+1. `themes/`
+
+In order to preserve readability, the main file should respect these guidelines:
+
+* one file per `@import`;
+* one `@import` per line;
+* no new line between two imports from the same folder;
+* a new line after the last import from a folder;
+* file extensions and leading underscores omitted.
+
+```sass
+@import 'abstracts/variables';
+@import 'abstracts/functions';
+@import 'abstracts/mixins';
+@import 'abstracts/placeholders';
+
+@import 'vendors/bootstrap';
+@import 'vendors/jquery-ui';
+
+@import 'base/reset';
+@import 'base/typography';
+
+@import 'layout/navigation';
+@import 'layout/grid';
+@import 'layout/header';
+@import 'layout/footer';
+@import 'layout/sidebar';
+@import 'layout/forms';
+
+@import 'components/buttons';
+@import 'components/carousel';
+@import 'components/cover';
+@import 'components/dropdown';
+
+@import 'pages/home';
+@import 'pages/contact';
+
+@import 'animations/animations';
 ```
