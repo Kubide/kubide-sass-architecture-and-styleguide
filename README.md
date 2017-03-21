@@ -179,3 +179,49 @@ $value: str-slice($length + unquote(''), 1, 2);
 ```
 
 On topic, CSS-Tricks has a [terrific article](http://css-tricks.com/magic-numbers-in-css/) about magic numbers in CSS that Hugo encourages you to read.
+
+## Colors
+
+Colors occupy an important place in the CSS language. You can read about how to use colors in Sass here:
+
+* [powerful functions](http://sass-lang.com/documentation/Sass/Script/Functions.html).
+* [How to Programmatically Go From One Color to Another](http://thesassway.com/advanced/how-to-programtically-go-from-one-color-to-another-in-sass)
+* [Using Sass to Build Color Palettes](http://www.sitepoint.com/using-sass-build-color-palettes/)
+* [Dealing with Color Schemes in Sass](http://www.sitepoint.com/dealing-color-schemes-sass/)
+
+### Color formats
+
+In order to make colors as simple as they can be, my advice would be to respect the following order of preference for color formats:
+
+1. [HSL notation](http://en.wikipedia.org/wiki/HSL_and_HSV);
+1. [RGB notation](http://en.wikipedia.org/wiki/RGB_color_model);
+1. Hexadecimal notation (lowercase and shortened).
+
+CSS color keywords should not be used, unless for rapid prototyping. Indeed, they are English words and some of them do a pretty bad job at describing the color they represent, especially for non-native speakers. On top of that, keywords are not perfectly semantic; for instance `grey` is actually darker than `darkgrey`, and the confusion between `grey` and `gray` can lead to inconsistent usages of this color.
+
+```sass
+// Yep
+.foo {
+  color: hsl(0, 100%, 50%);
+}
+
+// Also yep
+.foo {
+  color: rgb(255, 0, 0);
+}
+
+// Meh
+.foo {
+  color: #f00;
+}
+
+// Nope
+.foo {
+  color: #FF0000;
+}
+
+// Nope
+.foo {
+  color: red;
+}
+```
