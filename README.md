@@ -10,7 +10,7 @@ This is a free project that [I maintain](http://ignaciodenuevo.com/) at work.
 
 Now if you feel like contributing or fixing a tiny typo by opening an issue or a pull-request would be appreciated!
 
-> This is an abbreviation of Hugo Giraudel's Sass-Guideline
+> This is an abbreviation of Hugo Giraudel's Sass-Guidelines
 
 # Sass: Syntax & formatting
 
@@ -18,7 +18,7 @@ This styleguide should describe the way we want our code to look at Kubide.
 
 We are right now 4 Front-End developers and our Front-end Lead (so we thought is time to make an architecture to make our work easier).
 
-Same as Sass-Guideline and CSS-Guideline we would use the following.
+Same as Sass-Guidelines and CSS-Guidelines we would use the following.
 
 ```sass
 // Yep
@@ -699,3 +699,21 @@ In order to preserve readability, the main file should respect these guidelines:
 
 @import 'animations/animations';
 ```
+
+## Shame file
+
+There is an interesting concept that has been made popular by [Harry Roberts](http://csswizardry.com), [Dave Rupert](http://daverupert.com) and [Chris Coyier](http://css-tricks.com) that consists of putting all the CSS declarations, hacks and things we are not proud of in a [shame file](http://csswizardry.com/2013/04/shame-css-full-net-interview/).
+
+```sass
+/**
+ * Nav specificity fix.
+ *
+ * Someone used an ID in the header code (`#header a {}`) which trumps the
+ * nav selectors (`.site-nav a {}`). Use !important to override it until I
+ * have time to refactor the header stuff.
+ */
+.site-nav a {
+    color: #BADA55 !important;
+}
+```
+
