@@ -289,3 +289,88 @@ $font-stack: ('Helvetica', 'Arial', sans-serif,);
 ```
 In [this article](http://hugogiraudel.com/2013/07/15/understanding-sass-lists/), Hugo goes through a lot of tricks and tips to handle and manipulate lists correctly in Sass.
 
+
+## Maps
+
+With Sass, stylesheet authors can define maps — the Sass term for associative arrays, hashes or even JavaScript objects.
+
+Maps should be written as follows:
+
+* space after the colon (`:`);
+* opening brace (`(`) on the same line as the colon (`:`);
+* **quoted keys** if they are strings (which represents 99% of the cases);
+* each key/value pair on its own new line;
+* comma (`,`) at the end of each key/value;
+* **trailing comma** (`,`) on last item to make it easier to add, remove or reorder items;
+* closing brace (`)`) on its own new line;
+* no space or new line between closing brace (`)`) and semi-colon (`;`).
+
+```sass
+// Yep
+$breakpoints: (
+  'small': 767px,
+  'medium': 992px,
+  'large': 1200px,
+);
+
+// Nope
+$breakpoints: ( small: 767px, medium: 992px, large: 1200px );
+```
+
+Write-ups about Sass maps are many given how longed-for this feature was. Here are 3 that Hugo recommends: [Using Sass Maps](http://www.sitepoint.com/using-sass-maps/), [Extra Map functions in Sass](http://www.sitepoint.com/extra-map-functions-sass/), [Real Sass, Real Maps](http://blog.grayghostvisuals.com/sass/real-sass-real-maps/).
+
+## CSS Ruleset
+
+* related selectors on the same line; unrelated selectors on new lines;
+* the opening brace (`{`) spaced from the last selector by a single space;
+* each declaration on its own new line;
+* a space after the colon (`:`);
+* a trailing semi-colon (`;`) at the end of all declarations;
+* the closing brace (`}`) on its own new line;
+* a new line after the closing brace `}`.
+
+```sass
+// Yep
+.foo, .foo-bar,
+.baz {
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+// Nope
+.foo,
+.foo-bar, .baz {
+    display: block;
+    overflow: hidden;
+    margin: 0 auto }
+```
+
+Adding to those CSS-related guidelines, we want to pay attention to:
+
+* local variables being declared before any declarations, then spaced from declarations by a new line;
+* mixin calls with no `@content` coming before any declaration;
+* nested selectors always coming after a new line;
+* mixin calls with `@content` coming after any nested selector;
+* no new line before a closing brace (`}`).
+
+```sass
+.foo, .foo-bar,
+.baz {
+  $length: 42em;
+
+  @include ellipsis;
+  @include size($length);
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+
+  &:hover {
+    color: red;
+  }
+
+  @include respond-to('small') {
+    overflow: visible;
+  }
+}
+```
