@@ -10,7 +10,9 @@ This is a free project that [I maintain](http://ignaciodenuevo.com/) at work.
 
 Now if you feel like contributing or fixing a tiny typo by opening an issue or a pull-request would be appreciated!
 
-# Syntax & formatting
+> This is an abbreviation of Hugo Giraudel's Sass-Guideline
+
+# Sass: Syntax & formatting
 
 This styleguide should describe the way we want our code to look at Kubide.
 
@@ -97,4 +99,83 @@ URLs should be quoted as well, for the same reasons as above:
   background-image: url(/images/kittens.jpg);
 }
 ```
+## Numbers
 
+In Sass, number is a data type including everything from unitless numbers to lengths, durations, frequencies, angles and so on. This allows calculations to be run on such measures.
+
+### Zeros
+
+```sass
+// Yep
+.foo {
+  padding: 2em;
+  opacity: 0.5;
+}
+
+// Nope
+.foo {
+  padding: 2.0em;
+  opacity: .5;
+}
+```
+### Units
+
+When dealing with lengths, a `0` value should never ever have a unit.
+
+> Beware, this practice should be limited to lengths only. Having a unitless zero for a time property such as `transition-delay` is not allowed. Theoretically, if a unitless zero is specified for a duration, the declaration is deemed invalid and should be discarded. Not all browsers are that strict, but some are. Long story short: only omit the unit for lengths.
+
+To add a unit to a number, you have to multiply this number by 1 unit.
+
+```sass
+$value: 42;
+
+// Yep
+$length: $value * 1px;
+
+// Nope
+$length: $value + px;
+```
+
+To remove the unit of a value, you have to divide it by one unit of its kind.
+
+```sass
+$length: 42px;
+
+// Yep
+$value: $length / 1px;
+
+// Nope
+$value: str-slice($length + unquote(''), 1, 2);
+```
+
+### Calculations
+
+**Top-level numeric calculations should always be wrapped in parentheses**
+
+```sass
+// Yep
+.foo {
+  width: (100% / 3);
+}
+
+// Nope
+.foo {
+  width: 100% / 3;
+}
+```
+
+### Magic numbers
+
+"Magic number" is an [old school programming](http://en.wikipedia.org/wiki/Magic_number_(programming)#Unnamed_numerical_constants) term for *unnamed numerical constant*. Basically, it’s just a random number that happens to *just work*™ yet is not tied to any logical explanation.
+
+```sass
+/**
+ * 1. Magic number. This value is the lowest I could find to align the top of
+ * `.foo` with its parent. Ideally, we should fix it properly.
+ */
+.foo {
+  top: 0.327em; /* 1 */
+}
+```
+
+On topic, CSS-Tricks has a [terrific article](http://css-tricks.com/magic-numbers-in-css/) about magic numbers in CSS that Hugo encourages you to read.
