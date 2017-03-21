@@ -225,3 +225,67 @@ CSS color keywords should not be used, unless for rapid prototyping. Indeed, the
   color: red;
 }
 ```
+
+When using HSL or RGB notation, always add a single space after a comma (`,`) and no space between parentheses (`(`, `)`) and content.
+
+```sass
+// Yep
+.foo {
+  color: rgba(0, 0, 0, 0.1);
+  background: hsl(300, 100%, 100%);
+}
+
+// Nope
+.foo {
+  color: rgba(0,0,0,0.1);
+  background: hsl( 300, 100%, 100% );
+}
+```
+
+### Colors and variables
+
+When using a color more than once, store it in a variable with a meaningful name representing the color.
+
+```sass
+$sass-pink: hsl(330, 50%, 60%);
+```
+
+
+### Lightening and darkening colors
+
+To know how it works see the [following link](https://sass-guidelin.es/#lightening-and-darkening-colors).
+
+## Lists
+
+Lists are the Sass equivalent of arrays. A list is a flat data structure (unlike [maps](#maps)) intended to store values of any type (including lists, leading to nested lists).
+
+Lists should respect the following guidelines:
+
+* either inlined or multilines;
+* necessarily on multilines if too long to fit on an 80-character line;
+* unless used as is for CSS purposes, always comma separated;
+* always wrapped in parenthesis;
+* trailing comma if multilines, not if inlined.
+
+```sass
+// Yep
+$font-stack: ('Helvetica', 'Arial', sans-serif);
+
+// Yep
+$font-stack: (
+  'Helvetica',
+  'Arial',
+  sans-serif,
+);
+
+// Nope
+$font-stack: 'Helvetica' 'Arial' sans-serif;
+
+// Nope
+$font-stack: 'Helvetica', 'Arial', sans-serif;
+
+// Nope
+$font-stack: ('Helvetica', 'Arial', sans-serif,);
+```
+In [this article](http://hugogiraudel.com/2013/07/15/understanding-sass-lists/), Hugo goes through a lot of tricks and tips to handle and manipulate lists correctly in Sass.
+
