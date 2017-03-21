@@ -374,3 +374,215 @@ Adding to those CSS-related guidelines, we want to pay attention to:
   }
 }
 ```
+
+## Declaration Sorting
+
+We use to write CSS/Sass alphabetically:
+
+```sass
+.foo {
+  background: black;
+  bottom: 0;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  height: 100px;
+  position: absolute;
+  right: 0;
+  width: 100px;
+}
+```
+
+Another way to order selectors is to order them as [Idiomatic CSS](https://github.com/necolas/idiomatic-css#declaration-order) does.
+
+```sass
+.selector {
+    /* Positioning */
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    /* Display & Box Model */
+    display: inline-block;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border: 10px solid #333;
+    margin: 10px;
+
+    /* Other */
+    background: #000;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 16px;
+    text-align: right;
+}
+```
+
+## Selector Nesting
+
+We try not to nest more than three selectors deep in Kubide.
+
+```sass
+.foo {
+  .bar {
+    &:hover {
+      color: red;
+    }
+  }
+}
+```
+
+### Exceptions
+
+For starters, it is allowed and even recommended to nest pseudo-classes and pseudo-elements within the initial selector.
+
+```sass
+.foo {
+  color: red;
+
+  &:hover {
+    color: green;
+  }
+
+  &::before {
+    content: 'pseudo-element';
+  }
+}
+```
+
+When using component-agnostic state classes such as `.is-active`, it is perfectly fine to nest it under the component’s selector to keep things tidy.
+
+```sass
+.foo {
+  // …
+
+  &.is-active {
+    font-weight: bold;
+  }
+}
+```
+
+# Naming conventions
+
+There are a few things you can name in Sass, and it is important to name them well so the whole code base looks both consistent and easy to read:
+
+* variables;
+* functions;
+* mixins.
+
+
+As for many languages, Hugo suggests all-caps snakerized variables when they are constants. Not only is this a very old convention, but it also contrasts well with usual lowercased hyphenated variables.
+
+```sass
+// Yep
+$CSS_POSITIONS: (top, right, bottom, left, center);
+
+// Nope
+$css-positions: (top, right, bottom, left, center);
+
+```
+
+If you really want to play with the ideas of constants in Sass, you should read [this dedicated article](http://www.sitepoint.com/dealing-constants-sass/).
+
+# Commenting
+
+Because of this, it should be heavily commented, especially if you or someone else intend to read and update the code 6 months or 1 year from now.
+
+* the structure and/or role of a file;
+* the goal of a ruleset;
+* the idea behind a magic number;
+* the reason for a CSS declaration;
+* the order of CSS declarations;
+* the thought process behind a way of doing things.
+
+## Writing comments
+
+```sass
+/**
+ * Helper class to truncate and add ellipsis to a string too long for it to fit
+ * on a single line.
+ * 1. Prevent content from wrapping, forcing it on a single line.
+ * 2. Add ellipsis at the end of the line.
+ */
+.ellipsis {
+  white-space: nowrap; /* 1 */
+  text-overflow: ellipsis; /* 2 */
+  overflow: hidden;
+}
+```
+
+# Architecture
+
+Architecting a CSS project is probably one of the most difficult things you will have to do in a project’s life.
+
+## Components
+
+Components can be anything, as long as they:
+
+* do one thing and one thing only;
+* are re-usable and re-used across the project;
+* are independent.
+
+For instance, a search form should be treated as a component. It should be reusable, at different positions, on different pages, in various situations. It should not depend on its position in the DOM (footer, sidebar, main content…).
+
+## Component Structure
+
+Ideally, components should exist in their own Sass partial (within the `components/` folder, as is described in the [7-1 pattern](#the-7-1-pattern)), such as `components/_button.scss`. The styles described in each component file should only be concerned with:
+
+* the style of the component itself;
+* the style of the component’s variants, modifiers, and/or states;
+* the styles of the component’s descendents (i.e. children), if necessary.
+
+## [The 7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern)
+
+```
+sass/
+|
+|– abstracts/
+|   |– _variables.scss    # Sass Variables
+|   |– _functions.scss    # Sass Functions
+|   |– _mixins.scss       # Sass Mixins
+|   |– _placeholders.scss # Sass Placeholders
+|
+|– base/
+|   |– _reset.scss        # Reset/normalize
+|   |– _typography.scss   # Typography rules
+|   …                     # Etc.
+|
+|– components/
+|   |– _buttons.scss      # Buttons
+|   |– _carousel.scss     # Carousel
+|   |– _cover.scss        # Cover
+|   |– _dropdown.scss     # Dropdown
+|   …                     # Etc.
+|
+|– layout/
+|   |– _navigation.scss   # Navigation
+|   |– _grid.scss         # Grid system
+|   |– _header.scss       # Header
+|   |– _footer.scss       # Footer
+|   |– _sidebar.scss      # Sidebar
+|   |– _forms.scss        # Forms
+|   …                     # Etc.
+|
+|– pages/
+|   |– _home.scss         # Home specific styles
+|   |– _contact.scss      # Contact specific styles
+|   …                     # Etc.
+|
+|– animation/
+|   |– _animation.scss     # Animation Layer
+|
+|– vendors/
+|   |– _bootstrap.scss    # Bootstrap
+|   |– normalize.scss     # Normalize.css
+|   …                     # Etc.
+|
+– main.scss              # Main Sass file
+```
