@@ -335,3 +335,83 @@ Oftentimes we want to comment on specific declarations (i.e. lines) in a ruleset
 }
 ```
 
+## Naming Conventions
+
+A good naming convention will tell you and your team
+
+* what type of thing a class does.
+* where a class can be used.
+* what (else) a class might be related to.
+
+The naming convention Harry follows is very simple: hyphen (-) delimited strings, with BEM-like naming for more complex pieces of code.
+
+### Hyphen Delimited
+
+All strings in classes are delimited with a hyphen (-), like so:
+
+```css
+.page-head { }
+
+.sub-content { }
+```
+
+### BEM (Block - Element - Modifier)
+
+BEM splits components’ classes into three groups:
+
+[See BEM official documentation](https://en.bem.info/)
+
+* Block: The sole root of the component.
+* Element: A component part of the Block.
+* Modifier: A variant or extension of the Block.
+
+To take an analogy (note, not an example):
+
+```css
+.person { }
+.person__head { }
+.person--tall { }
+```
+
+Elements are delimited with two (2) underscores `(__)`, and Modifiers are delimited by two (2) hyphens `(--)`.
+
+#### Modifying Elements
+
+You can have variants of Elements, and these can be denoted in a number of ways depending on how and why they are being modified.
+
+```css
+.person__eye--blue { }
+```
+
+If using Sass, we would likely write this like so:
+
+```sass
+.person { }
+
+  .person__face {
+
+    .person--handsome & { }
+
+  }
+
+.person--handsome { }
+```
+
+Note that we do not nest a new instance of `.person__face {}` inside of `.person--handsome {};` instead, we make use of Sass’ parent selectors to prepend `.person--handsome` onto the existing `.person__face {}` selector. This means that all of our `.person__face {}`-related rules exist in once place, and aren’t spread throughout the file. This is general good practice when dealing with nested code: keep all of your context (e.g. all `.person__face {}` code) encapsulated in one location.
+
+[See naming conventions in HTML](http://cssguidelin.es/#naming-conventions-in-html) for more info.
+
+## JavaScript Hooks
+
+As a rule, it is unwise to bind your CSS and your JS onto the same class in your HTML. This is because doing so means you can’t have (or remove) one without (removing) the other. It is much cleaner, much more transparent, and much more maintainable to bind your JS onto specific classes.
+
+Typically, these are classes that are prepended with `js-`, for example:
+
+```html
+<input type="submit" class="btn  js-btn" value="Follow" />
+```
+
+## `data-*` Attributes
+
+A common practice is to use `data-*` attributes as JS hooks, but this is incorrect. `data-*` attributes, as per the spec, are used to store custom data private to the page or application (emphasis mine). `data-*` attributes are designed to store data, not be bound to.
+
