@@ -1,6 +1,6 @@
 # Sass
 
-> This is an abbreviation of Hugo Giraudel's Sass-Guidelines
+> This is an abbreviation of [Hugo Giraudel's Sass-Guidelines](https://sass-guidelin.es/)
 
 ## Syntax & formatting
 
