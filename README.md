@@ -10,6 +10,10 @@ This is a free project that [I maintain](http://ignaciodenuevo.com/) at work.
 
 Now if you feel like contributing or fixing a tiny typo by opening an issue or a pull-request would be appreciated!
 
+### CSS Guidelines
+
+* [Link to our CSS Guidelines version](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/blob/master/CSS-Guidelines.md)
+
 ### Sass Guidelines
 
 * [Link to our Sass Guidelines version](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/blob/master/Sass-Guidelines.md)
