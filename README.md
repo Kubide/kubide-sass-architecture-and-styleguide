@@ -784,3 +784,98 @@ A new variable should be created only when all of the following criteria are met
 * the value is repeated at least twice;
 * the value is likely to be updated at least once;
 * all occurrences of the value are tied to the variable (i.e. not by coincidence).
+
+# Extend
+
+[See Sass Guidelines extend](https://sass-guidelin.es/#extend)
+
+* [What Nobody Told you About Sass Extend](http://www.sitepoint.com/sass-extend-nobody-told-you/)
+* [Why You Should Avoid Extend](http://www.sitepoint.com/avoid-sass-extend/)
+* [Don't Over Extend Yourself](http://pressupinc.com/blog/2014/11/dont-overextend-yourself-in-sass/)
+
+# Mixins
+
+[See Sass Guidelines mixins](https://sass-guidelin.es/#mixins)
+
+## Basics
+
+The rule of thumb is that if you happen to spot a group of CSS properties that always appear together for a reason (i.e. not a coincidence), you can put them in a mixin instead. The [micro-clearfix hack from Nicolas Gallagher](http://nicolasgallagher.com/micro-clearfix-hack/) deserves to be put in a (argumentless) mixin for instance.
+
+```sass
+/// Helper to clear inner floats
+/// @author Nicolas Gallagher
+/// @link http://nicolasgallagher.com/micro-clearfix-hack/ Micro Clearfix
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+```
+
+# Conditional statements
+
+[See Sass Guidelines conditional statements](https://sass-guidelin.es/#conditional-statements)
+
+You probably already know that Sass provides conditional statements via the `@if` and `@else` directives. Unless you have some medium to complex logic in your code, there is no need for conditional statements in your everyday stylesheets. Actually, they mainly exist for libraries and frameworks.
+
+Anyway, if you ever find yourself in need of them, please respect the following guidelines:
+
+* No parentheses unless they are necessary;
+* Always an empty new line before `@if`;
+* Always a line break after the opening brace (`{`);
+* `@else` statements on the same line as previous closing brace (`}`).
+* Always an empty new line after the last closing brace (`}`) unless the next line is a closing brace (`}`).
+
+# Loops
+
+Because Sass provides complex data structures such as [lists](#lists) and [maps](#maps), it is no surprise that it also gives a way for authors to iterate over those entities.
+
+## Each
+
+The `@each` loop is definitely the most-used out of the three loops provided by Sass. It provides a clean API to iterate over a list or a map.
+
+```sass
+@each $theme in $themes {
+  .section-#{$theme} {
+    background-color: map-get($colors, $theme);
+  }
+}
+```
+
+When iterating on a map, always use `$key` and `$value` as variable names to enforce consistency.
+
+```sass
+@each $key, $value in $map {
+  .section-#{$key} {
+    background-color: $value;
+  }
+}
+```
+
+Also be sure to respect those guidelines to preserve readability:
+
+* Always an empty new line before `@each`;
+* Always an empty new line after the closing brace (`}`) unless the next line is a closing brace (`}`).
+
+## For
+
+The `@for` loop might be useful when combined with CSS’ `:nth-*` pseudo-classes. Except for these scenarios, prefer an `@each` loop if you *have to* iterate over something.
+
+```sass
+@for $i from 1 through 10 {
+  .foo:nth-of-type(#{$i}) {
+    border-color: hsl($i * 36, 50%, 50%);
+  }
+}
+```
+
+Always use `$i` as a variable name to stick to the usual convention and unless you have a really good reason to, never use the `to` keyword: always use `through`. Many developers do not even know Sass offers this variation; using it might lead to confusion.
+
+Also be sure to respect those guidelines to preserve readability:
+
+* Always an empty new line before `@for`;
+* Always an empty new line after the closing brace (`}`) unless the next line is a closing brace (`}`).
+
+
