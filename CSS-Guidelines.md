@@ -236,3 +236,102 @@ Separate independent but loosely related snippets of markup with a single empty 
 
 </ul>
 ```
+
+## Commenting
+
+As CSS is something of a declarative language that doesn’t really leave much of a paper-trail, it is often hard to discern—from looking at the CSS alone—
+
+* whether some CSS relies on other code elsewhere.
+* what effect changing some code will have elsewhere.
+* where else some CSS might be used.
+* what styles something might inherit (intentionally or otherwise).
+* what styles something might pass on (intentionally or otherwise).
+* where the author intended a piece of CSS to be used.
+
+As a rule, you should comment anything that isn’t immediately obvious from the code alone. That is to say, there is no need to tell someone that `color: red;` will make something red, but if you’re using `overflow: hidden;` to clear floats—as opposed to clipping an element’s overflow—this is probably something worth documenting.
+
+For large comments that document entire sections or components, we use a DocBlock-esque multi-line comment which adheres to our 80 column width.
+
+```css
+/**
+ * The site’s main page-head can have two different states:
+ *
+ * 1) Regular page-head with no backgrounds or extra treatments; it just
+ *    contains the logo and nav.
+ * 2) A masthead that has a fluid-height (becoming fixed after a certain point)
+ *    which has a large background image, and some supporting text.
+ *
+ * The regular page-head is incredibly simple, but the masthead version has some
+ * slightly intermingled dependency with the wrapper that lives inside it.
+ */
+ ```
+ 
+This level of detail should be the norm for all non-trivial code—descriptions of states.
+
+```css
+/**
+ * Extend `.btn {}` in _components.buttons.scss.
+ */
+
+.btn { }
+```
+
+### Low-level
+
+Oftentimes we want to comment on specific declarations (i.e. lines) in a ruleset.
+
+```css
+/**
+ * Large site headers act more like mastheads. They have a faux-fluid-height
+ * which is controlled by the wrapping element inside it.
+ *
+ * 1. Mastheads will typically have dark backgrounds, so we need to make sure
+ *    the contrast is okay. This value is subject to change as the background
+ *    image changes.
+ * 2. We need to delegate a lot of the masthead’s layout to its wrapper element
+ *    rather than the masthead itself: it is to this wrapper that most things
+ *    are positioned.
+ * 3. The wrapper needs positioning context for us to lay our nav and masthead
+ *    text in.
+ * 4. Faux-fluid-height technique: simply create the illusion of fluid height by
+ *    creating space via a percentage padding, and then position everything over
+ *    the top of that. This percentage gives us a 16:9 ratio.
+ * 5. When the viewport is at 758px wide, our 16:9 ratio means that the masthead
+ *    is currently rendered at 480px high. Let’s…
+ * 6. …seamlessly snip off the fluid feature at this height, and…
+ * 7. …fix the height at 480px. This means that we should see no jumps in height
+ *    as the masthead moves from fluid to fixed. This actual value takes into
+ *    account the padding and the top border on the header itself.
+ */
+
+.page-head--masthead {
+  margin-bottom: 0;
+  background: url(/img/css/masthead.jpg) center center #2e2620;
+  @include vendor(background-size, cover);
+  color: $color-masthead; /* [1] */
+  border-top-color: $color-masthead;
+  border-bottom-width: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) inset;
+
+  @include media-query(lap-and-up) {
+    background-image: url(/img/css/masthead-medium.jpg);
+  }
+
+  @include media-query(desk) {
+    background-image: url(/img/css/masthead-large.jpg);
+  }
+
+  > .wrapper { /* [2] */
+    position: relative; /* [3] */
+    padding-top: 56.25%; /* [4] */
+
+    @media screen and (min-width: 758px) { /* [5] */
+      padding-top: 0; /* [6] */
+      height: $header-max-height - double($spacing-unit) - $header-border-width; /* [7] */
+    }
+
+  }
+
+}
+```
+
