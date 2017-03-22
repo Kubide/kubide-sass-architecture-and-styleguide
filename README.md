@@ -1,6 +1,6 @@
-# Kubide Sass Architecture
+# Kubide Sass Architecture & Styleguide
 
-This will be the Sass Architecture used by [Kubide](https://kubide.es/) based on [CSS Guidelin](http://cssguidelin.es/) by [Harry Roberts](https://csswizardry.com/) and [Sass Guidelin](https://sass-guidelin.es/) by [Hugo Giraudel](http://hugogiraudel.com/).
+This will be the Sass Architecture used by [Kubide](https://kubide.es/) based on [CSS Guidelines](http://cssguidelin.es/) by [Harry Roberts](https://csswizardry.com/) and [Sass Guidelines](https://sass-guidelin.es/) by [Hugo Giraudel](http://hugogiraudel.com/).
 
 ## v0.0.1 [Under Construction]
 
