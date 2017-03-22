@@ -170,3 +170,69 @@ Attempt to align common and related identical strings in declarations, for examp
 
   .bar__foo { }
 ```
+
+## HTML
+
+Always quote attributes, even if they would work without.
+
+This is ok:
+
+```html
+<div class="box">
+```
+
+This is better:
+
+```html
+<div class="box">
+```
+
+When writing multiple values in a class attribute, separate them with two spaces, thus:
+
+```html
+<div class="foo  bar">
+```
+
+You can denote thematic breaks in content with five (2) empty lines, for example:
+
+```html
+<header class="page-head">
+  ...
+</header>
+
+
+<main class="page-content">
+  ...
+</main>
+
+
+<footer class="page-foot">
+  ...
+</footer>
+```
+
+Separate independent but loosely related snippets of markup with a single empty line, for example:
+
+```html
+<ul class="primary-nav">
+
+  <li class="primary-nav__item">
+    <a href="/" class="primary-nav__link">Home</a>
+  </li>
+
+  <li class="primary-nav__item  primary-nav__trigger">
+    <a href="/about" class="primary-nav__link">About</a>
+
+    <ul class="primary-nav__sub-nav">
+      <li><a href="/about/products">Products</a></li>
+      <li><a href="/about/company">Company</a></li>
+    </ul>
+
+  </li>
+
+  <li class="primary-nav__item">
+    <a href="/contact" class="primary-nav__link">Contact</a>
+  </li>
+
+</ul>
+```
