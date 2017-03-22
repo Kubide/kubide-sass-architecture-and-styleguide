@@ -717,3 +717,70 @@ There is an interesting concept that has been made popular by [Harry Roberts](ht
 }
 ```
 
+# Responsive Web Design and breakpoints
+
+## Naming breakpoints
+
+Breakpoints should not be named after devices but something more general.
+
+```sass
+// Yep
+$breakpoints: (
+  'medium': (min-width: 800px),
+  'large': (min-width: 1000px),
+  'huge': (min-width: 1200px),
+);
+
+// Nope
+$breakpoints: (
+  'tablet': (min-width: 800px),
+  'computer': (min-width: 1000px),
+  'tv': (min-width: 1200px),
+);
+```
+
+## Breakpoint manager
+
+Once you have named your breakpoints the way you want, you need a way to use them in actual media queries.
+
+Obviously, this is a fairly simplistic breakpoint manager.
+
+* [Sass-MQ](https://github.com/sass-mq/sass-mq)
+* [Breakpoint](http://breakpoint-sass.com/)
+* [include-media](https://github.com/eduardoboucas/include-media)
+* [SitePoint](http://www.sitepoint.com/managing-responsive-breakpoints-sass/)
+* [CSS-Tricks](http://css-tricks.com/approaches-media-queries-sass/)
+
+## Media Queries Usage
+
+```sass
+.foo {
+  color: red;
+
+  @include respond-to('medium') {
+    color: blue;
+  }
+}
+```
+
+Leading to the following CSS output:
+
+```sass
+.foo {
+  color: red;
+}
+
+@media (min-width: 800px) {
+  .foo {
+    color: blue;
+  }
+}
+```
+
+# Variables
+
+A new variable should be created only when all of the following criteria are met:
+
+* the value is repeated at least twice;
+* the value is likely to be updated at least once;
+* all occurrences of the value are tied to the variable (i.e. not by coincidence).
