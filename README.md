@@ -20,4 +20,4 @@ Now if you feel like contributing or fixing a tiny typo by opening an issue or a
 
 ### Sass-Guidelines 7-1 Architecture
 
-* [Sass 7-1 Architecture](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/tree/master/sass-boilerplate)
+* [Link to our Sass 7-1 Architecture version](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/tree/master/sass-boilerplate)
