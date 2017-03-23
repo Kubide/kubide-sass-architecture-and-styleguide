@@ -836,9 +836,56 @@ A selector like .content .box {} is potentially troublesome because
 
 Remember: **open for extension; closed for modification.**
 
+## DRY
 
+DRY, which stands for Don’t Repeat Repeat Yourself, is a micro-principle used in software development which aims to keep the repetition of key information to a minimum. Its formal definition is that
 
+> [e]very piece of knowledge must have a single, unambiguous, authoritative representation within a system.
 
+```css
+.btn {
+  display: inline-block;
+  padding: 1em 2em;
+  font-weight: bold;
+}
 
+[...]
 
+.page-title {
+  font-size: 3rem;
+  line-height: 1.4;
+  font-weight: bold;
+}
 
+[...]
+
+  .user-profile__title {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    font-weight: bold;
+  }
+```
+
+From the above code, we can reasonably deduce that the `font-weight: bold`; declaration appears three times purely coincidentally. To try and create an abstraction, mixin, or `@extend` directive to cater for this repetition would be overkill, and would tie these three rulesets together based purely on circumstance.
+
+In short, only DRY code that is actually, thematically related. Do not try to reduce purely coincidental repetition: **duplication is better than the wrong abstraction.**
+
+## Composition over Inheritance
+
+This principle suggests that larger systems should be composed from much smaller, individual parts, rather than inheriting behaviour from a much larger, monolithic object.
+
+## The Separation of Concerns
+
+The separation of concerns is a principle which, at first, sounds a lot like the single responsibility principle. The separation of concerns states that code should be broken up
+
+> into distinct sections, such that each section addresses a separate concern. A concern is a set of information that affects the code of a computer program. […] A program that embodies SoC well is called a modular program.
+
+The separation of concerns increases reusability and confidence whilst reducing dependency.
+
+### Misconceptions
+
+There are, I feel, a number of unfortunate misconceptions surrounding the separation of concerns when applied to HTML and CSS. They all seem to revolve around some format of:
+
+> Using classes for CSS in your markup breaks the separation of concerns.
+
+In short: having classes in your markup does not violate the separation of concerns. Classes merely act as an API to link two separate concerns together. The simplest way to separate concerns is to write well formed HTML and well formed CSS, and link to two together with sensible, judicious use of classes.
