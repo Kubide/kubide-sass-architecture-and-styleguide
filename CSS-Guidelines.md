@@ -415,3 +415,199 @@ Typically, these are classes that are prepended with `js-`, for example:
 
 A common practice is to use `data-*` attributes as JS hooks, but this is incorrect. `data-*` attributes, as per the spec, are used to store custom data private to the page or application (emphasis mine). `data-*` attributes are designed to store data, not be bound to.
 
+# CSS Selectors
+
+Selectors and their maintainability and scalability is one of the most critical things about writing CSS.
+
+## Selector Intent
+
+Do not style HTML tags directly to, for example style a navbar as follows:
+
+```css
+header ul { }
+```
+
+This selector’s intent is to style any ul inside any header element, whereas our intent was to style the site’s main navigation. 
+
+Instead create a class:
+
+```css
+.site-nav { }
+```
+
+CSS cannot be encapsulated, it is inherently leaky, but we can mitigate some of these effects by not writing such globally-operating selectors: **your selectors should be as explicit and well reasoned as your reason for wanting to select something.**
+
+## Reusability
+
+We want the option to be able to move, recycle, duplicate, and syndicate components across our projects.
+
+To this end, we make heavy use of classes. IDs, as well as being hugely over-specific. Everything you choose, from the type of selector to its name, should lend itself toward being reused.
+
+## Location Independence
+
+Our components’ styling should not be reliant upon where we place them—they should remain entirely location independent.
+
+```css
+.promo a { }
+```
+
+It will greedily style any and every link inside of a .promo to look like a button—it is also pretty wasteful as a result of being so locationally dependent: we can’t reuse that button with its correct styling outside of .promo because it is explicitly tied to that location. A far better selector would have been:
+
+```css
+.btn { }
+```
+
+## Portability
+
+Reducing, or, ideally, removing, location dependence means that we can move components around our markup more freely, but how about improving our ability to move classes around components?
+
+```css
+input.btn { }
+```
+
+This is a qualified selector; the leading `input` ties this ruleset to only being able to work on `input` elements. By omitting this qualification, we allow ourselves to reuse the `.btn` class on any element we choose, like an `a`, for example, or a `button`.
+
+Of course, there are times when you may want to legitimately qualify a selector—you might need to apply some very specific styling to a particular element when it carries a certain class, for example:
+
+```css
+/**
+ * Embolden and colour any element with a class of `.error`.
+ */
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+/**
+ * If the element is a `div`, also give it some box-like styling.
+ */
+div.error {
+  padding: 10px;
+  border: 1px solid;
+}
+```
+This is one example where a qualified selector might be justifiable, but I would still recommend an approach more like:
+
+```css
+/**
+ * Text-level errors.
+ */
+.error-text {
+  color: red;
+  font-weight: bold;
+}
+
+/**
+ * Elements that contain errors.
+ */
+.error-box {
+  padding: 10px;
+  border: 1px solid;
+}
+```
+
+## Naming
+
+Instead of a class like `.site-nav`, choose something like `.primary-nav`; rather than `.footer-links`, favour a class like `.sub-links`.
+
+That is to say, we should use sensible names—classes like `.border` or `.red` are never advisable—but we should avoid using classes which describe the exact nature of the content and/or its use cases. **Using a class name to describe content is redundant because content describes itself.**
+
+
+```css
+/**
+ * Runs the risk of becoming out of date; not very maintainable.
+ */
+.blue {
+  color: blue;
+}
+
+/**
+ * Depends on location in order to be rendered properly.
+ */
+.header span {
+  color: blue;
+}
+
+/**
+ * Too specific; limits our ability to reuse.
+ */
+.header-color {
+  color: blue;
+}
+
+/**
+ * Nicely abstracted, very portable, doesn’t risk becoming out of date.
+ */
+.highlight-color {
+  color: blue;
+}
+
+```
+
+Instead of .home-page-panel, choose .masthead; instead of `.site-nav`, favour `.primary-nav`; instead of `.btn-login`, opt for `.btn-primary`.
+
+[See naming UI components](http://cssguidelin.es/#naming-ui-components)
+
+## Selector Performance
+
+Generally speaking, the longer a selector is (i.e. the more component parts) the slower it is, for example:
+
+```css
+body.home div.header ul { }
+
+```
+
+…is a far less efficient selector than:
+
+```css
+.primary-nav { }
+```
+
+This is because browsers read CSS selectors **right-to-left**. A browser will read the first selector as:
+
+* find all `ul` elements in the DOM.
+* now check if they live anywhere inside an element with a class of `.header`.
+* next check that `.header` class exists on a `div` element.
+* now check that that all lives anywhere inside any elements with a class of `.home`.
+* finally, check that `.home` exists on a `body` element.
+
+The second, in contrast, is simply a case of the browser reading
+
+* find all the elements with a class of .primary-nav.
+
+## The Key Selector
+
+Because browsers read selectors **right-to-left**, the rightmost selector is often critical in defining a selector’s performance: this is called the key selector `* {}`.
+
+This is a very, very expensive selector, and should most likely be avoided or rewritten.
+
+## General Rules
+
+Your selectors are fundamental to writing good CSS. To very briefly sum up the above sections:
+
+* **Select what you want explicitly**, rather than relying on circumstance or coincidence. Good Selector Intent will rein in the reach and leak of your styles.
+* **Write selectors for reusability**, so that you can work more efficiently and reduce waste and repetition.
+* **Do not nest selectors unnecessarily**, because this will increase specificity and affect where else you can use your styles.
+* **Do not qualify selectors unnecessarily**, as this will impact the number of different elements you can apply styles to.
+* Keep selectors as short as possible, in order to keep specificity down and performance up.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
