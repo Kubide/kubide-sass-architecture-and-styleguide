@@ -17,3 +17,7 @@ Now if you feel like contributing or fixing a tiny typo by opening an issue or a
 ### Sass Guidelines
 
 * [Link to our Sass Guidelines version](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/blob/master/Sass-Guidelines.md)
+
+### Sass-Guidelines 7-1 Architecture
+
+* [Sass 7-1 Architecture](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/tree/master/sass-boilerplate)
