@@ -589,7 +589,109 @@ Your selectors are fundamental to writing good CSS. To very briefly sum up the a
 * **Write selectors for reusability**, so that you can work more efficiently and reduce waste and repetition.
 * **Do not nest selectors unnecessarily**, because this will increase specificity and affect where else you can use your styles.
 * **Do not qualify selectors unnecessarily**, as this will impact the number of different elements you can apply styles to.
-* Keep selectors as short as possible, in order to keep specificity down and performance up.
+* **Keep selectors as short as possible**, in order to keep specificity down and performance up.
+
+# Specificity
+
+As we’ve seen, CSS isn’t the most friendly of languages: globally operating, very leaky, dependent on location, hard to encapsulate, based on inheritance… But! None of that even comes close to the horrors of specificity.
+
+```css
+#content table { }
+
+/**
+ * Uh oh! My styles get overwritten by `#content table {}`.
+ */
+.my-new-table { }
+
+```
+
+Specificity can, among other things,
+
+* limit your ability to extend and manipulate a codebase.
+* interrupt and undo CSS’ cascading, inheriting nature.
+* cause avoidable verbosity in your project.
+* prevent things from working as expected when moved into different environments.
+* lead to serious developer frustration.
+
+Simple changes to the way we work include, but are not limited to,
+
+* not using IDs in your CSS.
+* not nesting selectors.
+* not qualifying classes.
+* not chaining selectors.
+
+## IDs in CSS
+
+If we want to keep specificity low, which we do, we have one really quick-win, simple, easy-to-follow rule that we can employ to help us: avoid using IDs in CSS.
+
+In fact, to highlight the severity of this difference, see how [one thousand chained classes cannot override the specificity of a single ID](http://jsfiddle.net/csswizardry/0yb7rque/).
+
+## Nesting
+
+When we talk about nesting, we don’t necessarily mean preprocessor nesting, like so:
+
+```css
+.foo {
+
+  .bar { }
+
+}
+```
+
+We’re actually talking about descendant or child selectors.
+
+```css
+/**
+ * An element with a class of `.bar` anywhere inside an element with a class of
+ * `.foo`.
+ */
+.foo .bar { }
+
+
+/**
+ * An element with a class of `.module-title` directly inside an element with a
+ * class of `.module`.
+ */
+.module > .module-title { }
+
+
+/**
+ * Any `li` element anywhere inside a `ul` element anywhere inside a `nav`
+ * element
+ */
+nav ul li { }
+```
+
+As a rule, **if a selector will work without it being nested then do not nest it.**
+
+## Scope
+
+One possible advantage of nesting—which, unfortunately, does not outweigh the disadvantages of increased specificity—is that it provides us with a namespace of sorts. A selector like `.widget .title` scopes the styling of `.title` to an element that only exists inside of an element carrying a class of `.widget`.
+
+### !important
+
+!important is not a good practice by default, but there are exceptions like helpers or utility classes in CSS.
+
+```css
+.one-half {
+  width: 50% !important;
+}
+
+.hidden {
+  display: none !important;
+}
+```
+
+Here we proactively apply `!important` to ensure that these styles always win. This is correct use of `!important` to guarantee that these trumps always work, and don’t accidentally get overridden by something else more specific.
+
+**Only use `!important` proactively, not reactively.**
+
+## Hacking Specificity
+
+[See hacking specificity](http://cssguidelin.es/#hacking-specificity)
+
+
+
 
 
 
