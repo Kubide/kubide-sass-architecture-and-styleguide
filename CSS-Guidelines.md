@@ -690,22 +690,151 @@ Here we proactively apply `!important` to ensure that these styles always win. T
 
 [See hacking specificity](http://cssguidelin.es/#hacking-specificity)
 
+# Architectural Principles
+
+In this section, we’ll take a look at some of these design patterns and paradigms, and how we can use them to reduce code—and increase code reuse—in our CSS projects.
+
+## High-level Overview
+
+At a very high-level, your architecture should help you
+
+* provide a consistent and sane environment.
+* accommodate change.
+* grow and scale your codebase.
+* promote reuse and efficiency.
+* increase productivity.
+
+## Object-orientation
+
+Object-orientation is a programming paradigm that breaks larger programs up into smaller, in(ter)dependent objects that all have their own roles and responsibilities. From Wikipedia:
+
+> Object-oriented programming (OOP) is a programming paradigm that represents the concept of ‘objects’ […] which are usually instances of classes, [and] are used to interact with one another to design applications and computer programs.
+
+Skin is a layer that we (optionally) add to our structure in order to give objects and abstractions a specific look-and-feel. Let’s look at an example:
+
+```css
+/**
+ * A simple, design-free button object. Extend this object with a `.btn--*` skin
+ * class.
+ */
+.btn {
+  display: inline-block;
+  padding: 1em 2em;
+  vertical-align: middle;
+}
 
 
+/**
+ * Positive buttons’ skin. Extends `.btn`.
+ */
+.btn--positive {
+  background-color: green;
+  color: white;
+}
+
+/**
+ * Negative buttons’ skin. Extends `.btn`.
+ */
+.btn--negative {
+  background-color: red;
+  color: white;
+}
+```
+
+Whenever you are building a UI component, try and see if you can break it into two parts: one for structural styles (paddings, layout, etc.) and another for skin (colours, typefaces, etc.)
+
+## The Single Responsibility Principle
+
+The single responsibility principle is a paradigm that, very loosely, states that all pieces of code (in our case, classes) should focus on doing one thing and one thing only. More formally:
+
+> …the single responsibility principle states that every context (class, function, variable, etc.) should have a single responsibility, and that responsibility should be entirely encapsulated by the context.
+
+```css
+.box {
+  display: block;
+  padding: 10px;
+}
 
 
+.message {
+  border-style: solid;
+  border-width: 1px 0;
+  font-weight: bold;
+}
 
+.message--error {
+  background-color: #fee;
+  color: #f00;
+}
 
+.message--success {
+  background-color: #efe;
+  color: #0f0;
+}
+```
 
+ Let’s take some example CSS that does not adhere to the single responsibility principle:
 
+```css
+.error-message {
+  display: block;
+  padding: 10px;
+  border-top: 1px solid #f00;
+  border-bottom: 1px solid #f00;
+  background-color: #fee;
+  color: #f00;
+  font-weight: bold;
+}
 
+.success-message {
+  display: block;
+  padding: 10px;
+  border-top: 1px solid #0f0;
+  border-bottom: 1px solid #0f0;
+  background-color: #efe;
+  color: #0f0;
+  font-weight: bold;
+}
+```
 
+## The Open/Closed Principle
 
+The open/closed principle, in my opinion, is rather poorly named. It is poorly named because 50% of the vital information is omitted from its title. The open/closed principle states that
 
+> [s]oftware entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.
 
+Let’s take an example:
 
+```css
+.box {
+  display: block;
+  padding: 10px;
+}
 
+.box--large {
+  padding: 20px;
+}
+```
 
+An incorrect way of achieving the same might look like this:
+
+```css
+.box {
+  display: block;
+  padding: 10px;
+}
+
+.content .box {
+  padding: 20px;
+}
+```
+
+A selector like .content .box {} is potentially troublesome because
+
+* it forces all `.box` components into that style when placed inside of `.content`, which means the modification is dictated to developers, whereas developers should be allowed to opt into changes explicitly;
+* the `.box` style is now unpredictable to developers; the single responsibility no longer exists because nesting the selector produces a forced caveat.
+
+Remember: **open for extension; closed for modification.**
 
 
 
