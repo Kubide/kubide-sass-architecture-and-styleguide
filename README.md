@@ -22,6 +22,6 @@ Now if you feel like contributing or fixing a tiny typo by opening an issue or a
 
 * [Link to our Sass 7-1 Architecture version](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/tree/master/sass-boilerplate)
 
-### Scss Lint rules
+### SCSS Lint rules
 
 * [SCSS_Lint Configuration](https://github.com/brigade/scss-lint/blob/master/lib/scss_lint/linter/README.md)
