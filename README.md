@@ -27,4 +27,4 @@ Now if you feel like contributing or fixing a tiny typo by opening an issue or a
 * [SCSS_Lint Configuration](https://github.com/brigade/scss-lint/blob/master/lib/scss_lint/linter/README.md)
 
 ### SCSS Linter config file
-* [.scss-lint.yml](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/blob/master/.scss-lint.yml=
+* [.scss-lint.yml](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/blob/master/.scss-lint.yml)
