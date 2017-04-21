@@ -58,6 +58,14 @@
 * CSS is a tricky language; do not hesitate to write very extensive comments about things that look (or are) fishy.
 * For variables, functions, mixins and placeholders establishing a public API, use SassDoc comments.
 
+For Section comments use:
+
+```sass
+// -----------------------------------------------------------------------------
+//  Write your comment here
+// -----------------------------------------------------------------------------
+```
+
 ## Variables
 
 * Do use the `!default` flag for any variable part of a public API that can be safely changed.
