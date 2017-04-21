@@ -32,3 +32,9 @@ Now if you feel like contributing or fixing a tiny typo by opening an issue or a
 
 ### SCSS Linter config file
 * [.scss-lint.yml](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/blob/master/.scss-lint.yml)
+
+To run the linter paste `.scss-lint.yml` in the root folder and replace `./stylesheets/` with the project's  [Sass 7-1 Architecture](https://github.com/Kubide/kubide-sass-architecture-and-styleguide/tree/master/sass-boilerplate) destination folder and run the following command
+
+```
+./node_modules/.bin/sass-lint './stylesheets/**/*.scss' -v -q
+```
