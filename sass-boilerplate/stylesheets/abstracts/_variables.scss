@@ -1,3 +1,164 @@
 // -----------------------------------------------------------------------------
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
+
+// 
+//  Colour Palette
+//  This is the primary and secondary colour palettes as described in the styleguide
+// 
+
+//  Base
+$basecolor: ;
+$basecolor-light: lighten($basecolor, 25%);
+$secondary: ;
+$bordercolor: ;
+$compcolor: ;
+
+//  Grey Scale
+$black: ;
+$darkergrey: ;
+$darkgrey: ;
+$grey: ;
+$lightgrey: ;
+$lightergrey: ;
+$white: #ffffff;
+
+// Web
+$background: ;
+$textcolor: ;
+$textcolor-strong: ;
+
+// Links
+$linkcolor:         $basecolor;
+$linkcolorhover:    $linkcolor;
+$linkcolorvisited:  $linkcolor;
+$linkcolorfocus:    $linkcolor;
+
+// Textures
+$alertbordercolor: ;
+$alertborderwidth: ;
+$alertborderstyle: ;
+$alerttext: ;
+
+// Error
+$alerterrorcolor: ;
+$alerterrorborder: ;
+$alerterrortext: ;
+
+// Info
+$alertinfocolor: ;
+$alertinfoborder: ;
+$alertinfotext: ;
+
+// Inverted
+$alertinversecolor: ;
+$alertinverseborder: ;
+$alertinversetext: ;
+
+// Success
+$alertsuccesscolor: ;
+$alertsuccessborder: ;
+$alertsuccesstext: ;
+
+// Warning
+$alertwarningcolor: ;
+$alertwarningborder: ;
+$alertwarningtext: ;
+
+// Social Networks
+$fb :rgb(59, 89, 182);
+$tw :rgb(64,153,255);
+$googleplus :rgb(221, 75, 57);
+$pinterest :rgb(203, 32, 39);
+$skype :rgb(18,165,244);
+$spotify :rgb(129,183,26);
+$instagram:#4E433C;
+$tumblr: #2B4964;
+$vimeo: #86B32D;
+$soundcloud: #f76600;
+$youtube: #FF3333;
+$linkedin: #4875B4;
+$flickr: #FE0883;
+$foursquare: #8FD400;
+
+
+
+
+
+// 
+//  Icons & Spinners
+//  This are the icons & spinners used in the styleguide
+// 
+$scale-number:    1.4;
+$baselineheight:  1em;
+$baseline:        $baselineheight;
+$gutterwidth:     24px;
+$pagemaxwidth:    860px;
+$radius:          3px;
+$hovertransition: 0.3s;
+$animationtime:   0.8s;
+
+
+
+
+
+//
+//  Sizes
+//  This are the sizes used in the styleguide to multiply elements
+//
+$size-vars: (
+  'x-small'  : 0.6,
+  'small'    : 0.8,
+  'normal'   : 1,
+  'big'      : 1.5,
+  'huge'     : 2
+);
+
+
+
+
+
+// 
+//  Typography
+//  This are the typography sizes used in the styleguide
+//
+$primaryfont:
+  'My Font',
+  'Times New Roman',
+  serif;
+
+  serif;
+
+$secodnaryfont:
+  'My Font',
+  Arial,
+  Sans-Serif;
+
+
+
+
+
+// 
+//  Icons & Spinners
+//  This are the icons & spinners used in the styleguide
+// 
+$icon-width: ;
+
+
+
+
+
+// 
+//  Spacing
+//  This are the spaces used in the styleguide
+//
+$spacing-small-top: calc(#{$spacing-top} / #{$scale-number});
+$spacing-small-bottom: calc(#{$spacing-bottom} / #{$scale-number});
+
+$spacing-top: ;
+$spacing-right: ;
+$spacing-bottom: ;
+$spacing-left: ;
+
+$spacing-big-top: calc(#{$spacing-top} * #{$scale-number});
+$spacing-big-bottom: calc(#{$spacing-top} * #{$scale-number});
