@@ -96,8 +96,8 @@ linters:
 
   NameFormat:
     enabled: true
-    convention: hyphenated_lowercase # Default valu
-e    allow_leading_underscore: true # Default value
+    convention: hyphenated_lowercase # Default value
+    allow_leading_underscore: true # Default value
 
   NestingDepth:
     enabled: true
